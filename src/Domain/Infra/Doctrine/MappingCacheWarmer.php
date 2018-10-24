@@ -14,15 +14,15 @@ use Symfony\Component\HttpKernel\CacheWarmer\CacheWarmerInterface;
  */
 final class MappingCacheWarmer implements CacheWarmerInterface
 {
-    private $rootDir;
     private $dirName;
     private $mappingFiles;
+    private $rootDir;
 
-    public function __construct(string $rootDir, string $dirName, array $mappingFiles)
+    public function __construct(string $dirName, array $mappingFiles, string $rootDir = null)
     {
-        $this->rootDir = $rootDir;
         $this->dirName = $dirName;
         $this->mappingFiles = $mappingFiles;
+        $this->rootDir = $rootDir;
     }
 
     public function isOptional(): bool
@@ -37,13 +37,11 @@ final class MappingCacheWarmer implements CacheWarmerInterface
 
         foreach ($this->mappingFiles as $file) {
             $filename = basename($file);
-            $split = explode('.', $file);
-            $bundle = strtolower(array_shift($split));
 
-            if ($filesystem->exists($this->rootDir.'/config/packages/msgphp/'.$bundle.'/'.$filename)) {
-                $filesystem->copy($this->rootDir.'/config/packages/msgphp/'.$bundle.'/'.$filename, $target.'/'.basename($file));
+            if ($this->rootDir && $filesystem->exists($this->rootDir.'/'.$filename)) {
+                $filesystem->copy($this->rootDir.'/'.$filename, $target.'/'.basename($file));
             } else {
-                $filesystem->copy($file, $target.'/'.basename($file));
+                $filesystem->copy($file, $target.'/'.$filename);
             }
         }
     }

@@ -211,9 +211,9 @@ final class BundleHelper
         if (FeatureDetection::hasFrameworkBundle($container)) {
             $container->register(DoctrineInfra\MappingCacheWarmer::class)
                 ->setPublic(false)
-                ->setArgument('$rootDir', '%kernel.project_dir%')
                 ->setArgument('$dirName', 'msgphp/doctrine-mapping')
                 ->setArgument('$mappingFiles', '%msgphp.doctrine.mapping_files%')
+                ->setArgument('$rootDir', '%kernel.project_dir%/config/packages/msgphp/doctrine')
                 ->addTag('kernel.cache_warmer', ['priority' => 100]);
         }
     }
