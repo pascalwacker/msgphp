@@ -16,13 +16,13 @@ final class MappingCacheWarmer implements CacheWarmerInterface
 {
     private $dirName;
     private $mappingFiles;
-    private $rootDir;
+    private $configDir;
 
-    public function __construct(string $dirName, array $mappingFiles, string $rootDir = null)
+    public function __construct(string $dirName, array $mappingFiles, string $configDir = null)
     {
         $this->dirName = $dirName;
         $this->mappingFiles = $mappingFiles;
-        $this->rootDir = $rootDir;
+        $this->configDir = $configDir;
     }
 
     public function isOptional(): bool
@@ -38,8 +38,8 @@ final class MappingCacheWarmer implements CacheWarmerInterface
         foreach ($this->mappingFiles as $file) {
             $filename = basename($file);
 
-            if ($this->rootDir && $filesystem->exists($this->rootDir.'/'.$filename)) {
-                $filesystem->copy($this->rootDir.'/'.$filename, $target.'/'.basename($file));
+            if ($this->configDir && $filesystem->exists($this->configDir.'/'.$filename)) {
+                $filesystem->copy($this->configDir.'/'.$filename, $target.'/'.basename($file));
             } else {
                 $filesystem->copy($file, $target.'/'.$filename);
             }

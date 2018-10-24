@@ -213,7 +213,7 @@ final class BundleHelper
                 ->setPublic(false)
                 ->setArgument('$dirName', 'msgphp/doctrine-mapping')
                 ->setArgument('$mappingFiles', '%msgphp.doctrine.mapping_files%')
-                ->setArgument('$rootDir', '%kernel.project_dir%/config/packages/msgphp/doctrine')
+                ->setArgument('$configDir', '%msgphp.doctrine.config_folder%')
                 ->addTag('kernel.cache_warmer', ['priority' => 100]);
         }
     }
