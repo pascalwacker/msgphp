@@ -24,7 +24,14 @@ final class ObjectFieldMappings implements ObjectFieldMappingsProviderInterface
         Features\TokenCredential::class => Credential\Token::class,
     ];
 
-    public static function provideObjectFieldMappings(): iterable
+    private $keyMaxLength;
+
+    public function __construct(int $keyMaxLength = 255)
+    {
+        $this->keyMaxLength = $keyMaxLength;
+    }
+
+    public static function provideObjectFieldMappings(int $keyMaxLength = 255): iterable
     {
         foreach (self::CREDENTIALS as $object => $credential) {
             yield $object => [
@@ -41,7 +48,7 @@ final class ObjectFieldMappings implements ObjectFieldMappingsProviderInterface
                 'type' => 'string',
                 'unique' => true,
                 'nullable' => true,
-                'length' => 191,
+                'length' => $keyMaxLength,
             ],
             'passwordRequestedAt' => [
                 'type' => 'datetime',

@@ -71,6 +71,7 @@ final class ExtensionHelper
 
         $container->setParameter($param = 'msgphp.doctrine.type_config', $container->hasParameter($param) ? $typeConfig + $container->getParameter($param) : $typeConfig);
         $container->setParameter($param = 'msgphp.doctrine.mapping_files', $container->hasParameter($param) ? array_merge($container->getParameter($param), $mappingFiles) : $mappingFiles);
+        $container->setParameter($param = 'msgphp.doctrine.key_max_length', $container->hasParameter($param) ? intval($container->getParameter($param)) : 255);
 
         $container->prependExtensionConfig('doctrine', [
             'dbal' => [

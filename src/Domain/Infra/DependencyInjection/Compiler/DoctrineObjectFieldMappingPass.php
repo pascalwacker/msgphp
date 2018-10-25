@@ -39,7 +39,7 @@ final class DoctrineObjectFieldMappingPass implements CompilerPassInterface
                 throw new InvalidArgumentException(sprintf('Provider "%s" must implement "%s".', $providerId, ObjectFieldMappingsProviderInterface::class));
             }
 
-            foreach ($providerClass::provideObjectFieldMappings() as $class => $mapping) {
+            foreach ($providerClass::provideObjectFieldMappings($container->getParameter('msgphp.doctrine.key_max_length')) as $class => $mapping) {
                 if (isset($mappings[$class])) {
                     continue;
                 }

@@ -13,13 +13,14 @@ use MsgPhp\Domain\Entity\{Features, Fields};
  */
 final class ObjectFieldMappings implements ObjectFieldMappingsProviderInterface
 {
-    public static function provideObjectFieldMappings(): iterable
+    public static function provideObjectFieldMappings(int $keyMaxLength = 255): iterable
     {
         yield Features\CanBeConfirmed::class => [
             'confirmationToken' => [
                 'type' => 'string',
                 'unique' => true,
                 'nullable' => true,
+                'length' => $keyMaxLength,
             ],
             'confirmedAt' => [
                 'type' => 'datetime',
