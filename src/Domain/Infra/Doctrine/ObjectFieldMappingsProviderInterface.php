@@ -15,5 +15,5 @@ interface ObjectFieldMappingsProviderInterface
     public const TYPE_ONE_TO_MANY = 'oneToMany';
     public const TYPE_ONE_TO_ONE = 'oneToOne';
 
-    public static function provideObjectFieldMappings(): iterable;
+    public static function provideObjectFieldMappings(MappingConfig $config): iterable;
 }

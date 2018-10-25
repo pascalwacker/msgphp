@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace MsgPhp\Domain\Tests\Infra\Doctrine;
 
 use MsgPhp\Domain\Entity\Features;
+use MsgPhp\Domain\Infra\Doctrine\MappingConfig;
 use MsgPhp\Domain\Infra\Doctrine\ObjectFieldMappings;
 use PHPUnit\Framework\TestCase;
 
@@ -17,7 +18,7 @@ final class ObjectFieldMappingsTest extends TestCase
         }, glob(\dirname(__DIR__, 3).'/Entity/{Features,Fields}/*.php', \GLOB_BRACE)));
         unset($available[Features\CanBeEnabled::class]);
 
-        $mappings = ObjectFieldMappings::provideObjectFieldMappings();
+        $mappings = ObjectFieldMappings::provideObjectFieldMappings(new MappingConfig());
         $mappings = array_keys($mappings instanceof \Traversable ? iterator_to_array($mappings) : $mappings);
         sort($mappings);
 

@@ -208,11 +208,14 @@ final class BundleHelper
             ->addTag('doctrine.event_listener', ['event' => DoctrineOrmEvents::loadClassMetadata])
             ->addTag('msgphp.domain.process_class_mapping', ['argument' => '$mappings']);
 
+        $container->register(DoctrineInfra\MappingConfig::class)
+            ->setPublic(false)
+            ->setArgument('$mappingConfig', '%msgphp.doctrine.mapping_config%');
+
         if (FeatureDetection::hasFrameworkBundle($container)) {
-            $container->register(DoctrineInfra\MappingCacheWarmer::class)
+            $container->autowire(DoctrineInfra\MappingCacheWarmer::class)
                 ->setPublic(false)
                 ->setArgument('$dirName', 'msgphp/doctrine-mapping')
-                ->setArgument('$mappingFiles', '%msgphp.doctrine.mapping_files%')
                 ->addTag('kernel.cache_warmer', ['priority' => 100]);
         }
     }
