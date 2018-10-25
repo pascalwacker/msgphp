@@ -201,8 +201,7 @@ final class BundleHelper
 
         $container->register(DoctrineInfra\ObjectFieldMappings::class)
             ->setPublic(false)
-            ->addTag('msgphp.doctrine.object_field_mappings', ['priority' => -100])
-            ->setArgument('$keyMaxLength', '%msgphp.doctrine.key_max_length%');
+            ->addTag('msgphp.doctrine.object_field_mappings', ['priority' => -100]);
 
         $container->register(DoctrineInfra\Event\ObjectFieldMappingListener::class)
             ->setPublic(false)
