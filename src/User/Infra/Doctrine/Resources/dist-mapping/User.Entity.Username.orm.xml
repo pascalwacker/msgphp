@@ -4,7 +4,7 @@
     xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
 
     <mapped-superclass name="MsgPhp\User\Entity\Username">
-        <id name="username" />
+        <id name="username" length="%msgphp.doctrine.mapping_config.key_max_length%" />
 
         <many-to-one field="user" target-entity="MsgPhp\User\Entity\User" fetch="EAGER">
             <join-column on-delete="CASCADE" nullable="false" />

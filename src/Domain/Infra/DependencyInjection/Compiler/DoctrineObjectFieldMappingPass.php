@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace MsgPhp\Domain\Infra\DependencyInjection\Compiler;
 
+use MsgPhp\Domain\Infra\Doctrine\MappingConfig;
 use MsgPhp\Domain\Infra\Doctrine\ObjectFieldMappingsProviderInterface;
 use MsgPhp\Domain\Infra\Doctrine\Event\ObjectFieldMappingListener;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
@@ -30,6 +31,7 @@ final class DoctrineObjectFieldMappingPass implements CompilerPassInterface
     public function process(ContainerBuilder $container): void
     {
         $mappings = [];
+        $config = MappingConfig::fromArray($container->getParameter('msgphp.doctrine.mapping_internal_config'));
 
         foreach ($this->findAndSortTaggedServices($this->tagName, $container) as $providerId) {
             $providerId = (string) $providerId;
@@ -39,7 +41,7 @@ final class DoctrineObjectFieldMappingPass implements CompilerPassInterface
                 throw new InvalidArgumentException(sprintf('Provider "%s" must implement "%s".', $providerId, ObjectFieldMappingsProviderInterface::class));
             }
 
-            foreach ($providerClass::provideObjectFieldMappings() as $class => $mapping) {
+            foreach ($providerClass::provideObjectFieldMappings($config) as $class => $mapping) {
                 if (isset($mappings[$class])) {
                     continue;
                 }
