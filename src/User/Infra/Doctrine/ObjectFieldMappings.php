@@ -41,6 +41,7 @@ final class ObjectFieldMappings implements ObjectFieldMappingsProviderInterface
                 'type' => 'string',
                 'unique' => true,
                 'nullable' => true,
+                'length' => 191,
             ],
             'passwordRequestedAt' => [
                 'type' => 'datetime',
