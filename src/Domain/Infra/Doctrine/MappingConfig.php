@@ -9,18 +9,21 @@ namespace MsgPhp\Domain\Infra\Doctrine;
  */
 final class MappingConfig
 {
-    public const DEFAULT_KEY_MAX_LENGTH = 191;
+    private const DEFAULT_KEY_MAX_LENGTH = 191;
 
     /** @var string[] */
     public $mappingFiles;
+
     /** @var string|null */
     public $mappingDir;
+
     /** @var int */
     public $keyMaxLength = self::DEFAULT_KEY_MAX_LENGTH;
 
-    public function __construct(array $mappingFiles = [], array $mappingConfig = [])
+    public function __construct(array $mappingFiles, array $mappingConfig = [])
     {
         $this->mappingFiles = $mappingFiles;
+
         if (isset($mappingConfig['mapping_dir'])) {
             $this->mappingDir = (string) $mappingConfig['mapping_dir'];
         }
