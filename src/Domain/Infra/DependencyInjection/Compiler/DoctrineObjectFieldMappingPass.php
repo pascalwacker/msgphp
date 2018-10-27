@@ -31,7 +31,7 @@ final class DoctrineObjectFieldMappingPass implements CompilerPassInterface
     public function process(ContainerBuilder $container): void
     {
         $mappings = [];
-        $container->getParameterBag()->resolve('%msgphp.doctrine.mapping_config%');
+        $container->getParameterBag()->resolve();
         $config = new MappingConfig($container->getParameter('msgphp.doctrine.mapping_files'), $container->getParameter('msgphp.doctrine.mapping_config'));
 
         foreach ($this->findAndSortTaggedServices($this->tagName, $container) as $providerId) {
