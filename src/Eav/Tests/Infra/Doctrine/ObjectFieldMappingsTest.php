@@ -18,7 +18,7 @@ final class ObjectFieldMappingsTest extends TestCase
         }, glob(\dirname(__DIR__, 3).'/Entity/{Features,Fields}/*.php', \GLOB_BRACE)));
         unset($available[AttributesField::class]);
 
-        $mappings = ObjectFieldMappings::provideObjectFieldMappings(new MappingConfig());
+        $mappings = ObjectFieldMappings::provideObjectFieldMappings(new MappingConfig([]));
         $mappings = array_keys($mappings instanceof \Traversable ? iterator_to_array($mappings) : $mappings);
         sort($mappings);
 

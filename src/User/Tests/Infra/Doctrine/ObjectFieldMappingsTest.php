@@ -22,7 +22,7 @@ final class ObjectFieldMappingsTest extends TestCase
             $available[Features\AbstractSaltedPasswordCredential::class]
         );
 
-        $mappings = ObjectFieldMappings::provideObjectFieldMappings(new MappingConfig());
+        $mappings = ObjectFieldMappings::provideObjectFieldMappings(new MappingConfig([]));
         $mappings = array_keys($mappings instanceof \Traversable ? iterator_to_array($mappings) : $mappings);
         sort($mappings);
 
