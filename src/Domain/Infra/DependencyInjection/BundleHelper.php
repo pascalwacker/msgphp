@@ -180,6 +180,8 @@ final class BundleHelper
     {
         @mkdir($mappingDir = $container->getParameterBag()->resolveValue('%kernel.cache_dir%/msgphp/doctrine-mapping'), 0777, true);
 
+        $container->setParameter($param = 'msgphp.doctrine.mapping_config', array_merge(['mapping_dir' => '%kernel.project_dir%/config/packages/msgphp/doctrine'], ($container->hasParameter($param) ? $container->getParameter($param) : [])));
+
         $container->addCompilerPass(new Compiler\DoctrineObjectFieldMappingPass(), PassConfig::TYPE_BEFORE_OPTIMIZATION, 100);
 
         $container->prependExtensionConfig('doctrine', ['orm' => [
@@ -210,6 +212,7 @@ final class BundleHelper
 
         $container->register(DoctrineInfra\MappingConfig::class)
             ->setPublic(false)
+            ->setArgument('$mappingFiles', '%msgphp.doctrine.mapping_files%')
             ->setArgument('$mappingConfig', '%msgphp.doctrine.mapping_config%');
 
         if (FeatureDetection::hasFrameworkBundle($container)) {

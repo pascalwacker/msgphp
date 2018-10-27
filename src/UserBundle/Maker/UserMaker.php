@@ -35,13 +35,13 @@ final class UserMaker implements MakerInterface
 {
     private $classMapping;
     private $projectDir;
+    private $mappingConfig;
     private $credential;
     private $passwordReset = false;
     private $configs = [];
     private $services = [];
     private $routes = [];
     private $writes = [];
-    private $mappingConfig;
 
     /** @var \ReflectionClass */
     private $user;

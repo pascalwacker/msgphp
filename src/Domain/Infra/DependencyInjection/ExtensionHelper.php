@@ -70,12 +70,7 @@ final class ExtensionHelper
         }
 
         $container->setParameter($param = 'msgphp.doctrine.type_config', $container->hasParameter($param) ? $typeConfig + $container->getParameter($param) : $typeConfig);
-        $baseConfig = [
-            'mapping_files' => $container->hasParameter('msgphp.doctrine.mapping_files') ? array_merge($container->getParameter('msgphp.doctrine.mapping_files'), $mappingFiles) : $mappingFiles,
-            'mapping_dir' => $container->hasParameter('kernel.project_dir') ? $container->getParameter('kernel.project_dir').'/config/packages/msgphp/doctrine' : null,
-        ];
-        $param = 'msgphp.doctrine.mapping_config';
-        $container->setParameter('msgphp.doctrine.mapping_internal_config', array_merge($baseConfig, ($container->hasParameter($param) ? $container->getParameter($param) : [])));
+        $container->setParameter($param = 'msgphp.doctrine.mapping_files', $container->hasParameter($param) ? array_merge($container->getParameter('msgphp.doctrine.mapping_files'), $mappingFiles) : $mappingFiles);
 
         $container->prependExtensionConfig('doctrine', [
             'dbal' => [
