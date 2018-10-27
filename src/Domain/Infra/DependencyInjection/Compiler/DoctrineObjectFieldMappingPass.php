@@ -14,6 +14,8 @@ use Symfony\Component\DependencyInjection\Exception\InvalidArgumentException;
 
 /**
  * @author Roland Franssen <franssen.roland@gmail.com>
+ *
+ * @todo move to runtime (inject by tag)
  */
 final class DoctrineObjectFieldMappingPass implements CompilerPassInterface
 {
@@ -30,6 +32,10 @@ final class DoctrineObjectFieldMappingPass implements CompilerPassInterface
 
     public function process(ContainerBuilder $container): void
     {
+        $container->setParameter($param = 'msgphp.doctrine.mapping_config', ($container->hasParameter($param) ? $container->getParameter($param) : []) + [
+            'mapping_dir' => '%kernel.project_dir%/config/packages/msgphp/doctrine',
+        ]);
+
         $mappings = [];
         $config = new MappingConfig(
             $container->getParameter('msgphp.doctrine.mapping_files'),
