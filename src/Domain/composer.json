@@ -37,6 +37,9 @@
         "symfony/property-access": "^3.4|^4.0",
         "symfony/var-dumper": "^3.4|^4.0"
     },
+    "conflict": {
+        "symfony/messenger": "<4.2"
+    },
     "config": {
         "preferred-install": {
             "*": "dist"
